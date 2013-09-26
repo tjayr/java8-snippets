@@ -16,20 +16,34 @@ public class FileSorter {
 
     public void map(List<String> input) {
         System.out.println("map >>>>>");
-        input.stream()
+        long start = System.currentTimeMillis();
+        input.stream().parallel()
+                .filter(p -> p.contains("hello"))
+                .map(mapper -> mapper + " Jim")
+                .forEach(item -> System.out.println(item));
+        System.out.println("map executed in " +(System.currentTimeMillis() - start)+" ms");
+
+    }
+
+    public void parallelMap(List<String> input) {
+        System.out.println("parallel map >>>>>");
+        long start = System.currentTimeMillis();
+        input.stream().parallel()
                 .filter(p -> p.contains("hello"))
                 .map(mapper -> mapper + " Jim")
                 .forEach(item -> System.out.println(item));
 
+        System.out.println("parallelMap executed in " +(System.currentTimeMillis() - start)+" ms");
     }
 	
 	
 	public static void main(String[] args) {
 		String[] data = {"hello", "2", "3", "4", "hello"};
 		FileSorter sorter = new FileSorter();
-		sorter.foreach(Arrays.asList(data));
-
-        sorter.map(Arrays.asList(data));
+        List<String> listData = Arrays.asList(data);
+		sorter.foreach(listData);
+        sorter.map(listData);
+        sorter.parallelMap(listData);
 	}
 
 }
