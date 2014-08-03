@@ -3,9 +3,8 @@ package com.clearprecision.java8;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
-public class FileSorter {
+public class LamdaExperiments {
 
 	public void foreach(List<String> input) {
         System.out.println("foreach >>>>>");
@@ -32,6 +31,8 @@ public class FileSorter {
                 .filter(p -> p.contains("hello"))
                 .map(mapper -> mapper + " Jim")
                 .forEach(item -> System.out.println(item));
+        
+        
 
         System.out.println("parallelMap executed in " +(System.currentTimeMillis() - start)+" ms");
     }
@@ -39,7 +40,7 @@ public class FileSorter {
 	
 	public static void main(String[] args) {
 		String[] data = {"hello", "2", "3", "4", "hello"};
-		FileSorter sorter = new FileSorter();
+		LamdaExperiments sorter = new LamdaExperiments();
         List<String> listData = Arrays.asList(data);
 		sorter.foreach(listData);
         sorter.map(listData);
